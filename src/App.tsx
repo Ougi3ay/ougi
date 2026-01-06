@@ -1,13 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
+import { ThemeProvider } from "./hooks/use-theme";
+import Home from "./pages/home/page";
+import AppLayout from "./pages/layout";
 
 
 export default function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <ThemeProvider>
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </AppLayout>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
