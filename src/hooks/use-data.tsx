@@ -1,57 +1,60 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export default function useData<T = any>(filename: string) {
-    const [data, setData] = useState<T | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+type DataMap = Record<string, any>;
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetch(`${import.meta.env.BASE_URL}${filename}`);
-                const json = await res.json();
-                setData(json);
-            } catch (err) {
-                setError("Failed to load data");
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchData();
-    }, [filename]);
-
-    return { data, loading, error };
+interface DataContextType {
+  data: DataMap | null;
+  loading: boolean;
+  error: string | null;
 }
 
-export const DataContext = createContext<any>(null);
+const DataContext = createContext<DataContextType | undefined>(undefined);
 
-export function useDataContext() {
-    const context = useContext(DataContext);
-    if (!context) {
-        throw new Error("useDataContext must be used within a DataProvider");
-    }
-    return context;
+export const useDataContext = () => {
+  const context = useContext(DataContext);
+  if (!context) {
+    throw new Error("useDataContext must be used within a DataProvider");
+  }
+  return context;
+};
+
+interface DataProviderProps {
+  children: ReactNode;
+  files?: string[]; // allow multiple JSON files
 }
 
-export function DataProvider({ children }: { children: React.ReactNode }) {
-    const { data, loading, error } = useData('data.json');
-    const { data: pages, loading: pagesLoading, error: pagesError } = useData('pages.json');
+export const DataProvider = ({ children, files = ["data.json", "pages.json"] }: DataProviderProps) => {
+  const [data, setData] = useState<DataMap | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    if (loading || pagesLoading) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    async function loadAll() {
+      try {
+        const results: DataMap = {};
+
+        // Fetch all files in parallel
+        await Promise.all(
+          files.map(async (file) => {
+            const res = await fetch(`${import.meta.env.BASE_URL}${file}`);
+            if (!res.ok) throw new Error(`Failed to load ${file}`);
+            results[file.replace(".json", "")] = await res.json();
+          })
+        );
+
+        setData(results);
+      } catch (err: any) {
+        setError(err.message || "Failed to load data");
+      } finally {
+        setLoading(false);
+      }
     }
 
-    if (error || pagesError) {
-        return <div>Error loading data</div>;
-    }
+    loadAll();
+  }, []);
 
-    return (
-        <DataContext.Provider value={{
-            data,
-            pages
-        }}>
-            {children}
-        </DataContext.Provider>
-    )
-}
+  if (loading) return <div>Loading...</div>; // or your spinner
+  if (error) return <div className="text-red-500">{error}</div>;
+
+  return <DataContext.Provider value={{ data, loading, error }}>{children}</DataContext.Provider>;
+};
