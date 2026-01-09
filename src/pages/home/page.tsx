@@ -11,6 +11,8 @@ export default function HomePage() {
     const hero = data?.data?.home?.hero;
     const about = data?.data?.about;
     const projects = data?.data?.projects;
+    const skills = data?.data?.skills;
+    console.log(skills)
 
     return (
         <div className="flex flex-col gap-28">
@@ -94,6 +96,38 @@ export default function HomePage() {
                         </Card>
                     ))}
                 </div>
+            </section>
+
+            {/* Skills Section */}
+            <section className="container mx-auto px-4">
+                <h2 className="text-2xl font-semibold mb-6">Skills</h2>
+
+                <div className="flex flex-wrap gap-3">
+                    {skills?.map((skill: any) => (
+                        <div key={skill.id} className="flex items-center gap-2 rounded-md border px-3 py-2 bg-background hover:bg-accent transition">
+                            <img
+                                src={skill.icon}
+                                alt={skill.name + " icon"}
+                                className="h-6 w-6"
+                            />
+                            <span className="text-sm font-medium">{skill.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Call to Action Section */}
+            <section className="container mx-auto px-4 pb-28 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold">
+                    Let’s work together
+                </h2>
+                <p className="mt-4 text-muted-foreground">
+                    Have a project idea or need help building something great?
+                </p>
+
+                <Button asChild size="lg" className="mt-6">
+                    <Link to="/contact">Get in touch</Link>
+                </Button>
             </section>
         </div>
     )
