@@ -18,9 +18,9 @@ export default function Navbar() {
         <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
                 {/* Logo */}
-                <Link to="/" className="text-xl font-bold text-brand tracking-tight hover:opacity-90">
+                <Link to="/" className="text-xl font-bold text-primary tracking-tight hover:opacity-90">
                     {data?.meta?.logo?.text || "MyLogo"}
-                    <span className="text-brand">.</span>
+                    <span className="text-primary">.</span>
                 </Link>
 
                 {/* Desktop Nav */}
@@ -34,7 +34,7 @@ export default function Navbar() {
                                 cn(
                                     "text-sm font-medium transition-colors",
                                     pathname === item.path
-                                        ? "text-brand"
+                                        ? "text-primary"
                                         : "text-muted-foreground hover:text-primary"
                                 )
                             }
@@ -49,7 +49,7 @@ export default function Navbar() {
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon" className="md:hidden">
-                            <Menu size={20} className="text-brand"/>
+                            <Menu size={20} className="text-primary"/>
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right">
@@ -71,7 +71,7 @@ export default function Navbar() {
                                     className={
                                         cn(
                                             "rounded-md px-3 py-2 text-lg font-medium transition-colors hover:bg-accent",
-                                            pathname === item.path && "bg-accent text-brand"
+                                            pathname === item.path && "bg-accent text-primary"
                                         )
                                     }
                                 >

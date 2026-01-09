@@ -32,6 +32,7 @@ export default function AppRoutes() {
           />
         ))}
       </Route>
+      <Route path="*" element={<div>Page Not Found</div>} />
     </Routes>
   );
 }
