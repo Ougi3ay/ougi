@@ -11,6 +11,7 @@ interface ProjectsSectionProps {
         name: string;
         description: string;
         image: string;
+        link: string;
     }>;
 }
 
@@ -42,6 +43,7 @@ interface ProjectCardProps {
         name: string;
         description: string;
         image: string;
+        link: string;
     };
 }
 
@@ -55,7 +57,7 @@ export function PorjectCard({ project }: ProjectCardProps) {
                 <h3 className="font-semibold text-lg">{project.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
                 <Button asChild variant="link" className="mt-4 px-0">
-                    <Link to={`/projects/${project.id}`}>
+                    <Link to={project.link} target="_blank">
                         View Details <ArrowRight className="ml-1 h-4 w-4" />
                     </Link>
                 </Button>
