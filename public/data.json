@@ -91,6 +91,19 @@
         ],
         "experiences": [
             {
+                "id": 1,
+                "role": "Data Analysis Intern",
+                "company": "Calmette Hospital",
+                "location": ""
+            },
+            {
+                "id": 2,
+                "role": "Data Analysis Intern",
+                "company": "Calmette Hospital",
+                "location": ""
+            },
+            {
+                "id": 3,
                 "role": "Data Analysis Intern",
                 "company": "Calmette Hospital",
                 "location": ""
@@ -98,6 +111,7 @@
         ],
         "educations": [
             {
+                "id": 1,
                 "degree": "Engineering degree in Data Science",
                 "institution": "Institute of Technology of Cambodia",
                 "year": "2021 - Present",
@@ -106,6 +120,7 @@
                 "description": ""
             },
             {
+                "id": 2,
                 "degree": "General English Program",
                 "institution": "Australian Centre for Education",
                 "year": "2023 - Present",
@@ -114,6 +129,7 @@
                 "description": ""
             },
             {
+                "id": 3,
                 "degree": "Full Stack Web Development",
                 "institution": "CamCyber Digital Tech Team",
                 "year": "2024 - Present",
@@ -122,6 +138,7 @@
                 "description": ""
             },
             {
+                "id": 4,
                 "degree": "Penetration Testing",
                 "institution": "ANT Technology Training Center & ThinkCyber",
                 "year": "2024 - 2025",
@@ -129,6 +146,13 @@
                 "details": "Learning advanced techniques in ethical hacking and cybersecurity.",
                 "description": ""
             }
+        ],
+        "interests": [
+            "Machine Learning",
+            "System Design",
+            "Cybersecurity",
+            "Open Source",
+            "Hiking & Photography"
         ]
     },
     "skills": [
