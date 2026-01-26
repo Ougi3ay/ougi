@@ -23,3 +23,11 @@ export type EducationType = {
     image?: string;
     location?: string;
 }
+
+export type ProjectType = {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    link: string;
+}
